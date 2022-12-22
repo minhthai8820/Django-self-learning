@@ -208,7 +208,7 @@ Sự khác biệt giữa một dự án và một ứng dụng là gì? Ứng d�
  ```python manage.py startapp polls```
  - Include function
  ```
- Hàm include() cho phép tham chiếu các URLconf khác. Bất cứ khi nào Django gặp bao gồm (), nó sẽ cắt bỏ bất kỳ phần nào của URL khớp với điểm đó và gửi chuỗi còn lại tới URLconf được bao gồm để xử lý thêm.
+ Hàm include() cho phép tham chiếu các URLconf khác. Bất cứ khi nào Django gặp include(), nó sẽ cắt bỏ bất kỳ phần nào của URL khớp với điểm đó và gửi chuỗi còn lại tới URLconf được bao gồm để xử lý thêm.
  => You should always use include() when you include other URL patterns. admin.site.urls is the only exception to this.
  ```
  - Path() arguement: route
