@@ -180,7 +180,7 @@ INSTALLED_APPS = [
     'django.contrib.admin'
 # ...
 ```
-## Django tutorial 
+## 4. Django tutorial 
 https://docs.djangoproject.com/en/4.1/intro/tutorial01/
 ### Start new project
 ```django-admin startproject mysite``` > Tránh sử dụng name như django hoặc test vì sẽ bị conflic với django
@@ -220,7 +220,7 @@ Sự khác biệt giữa một dự án và một ứng dụng là gì? Ứng d�
  - Path() argument: name
     - Việc đặt tên cho URL của bạn cho phép bạn tham khảo nó một cách rõ ràng từ những nơi khác trong Django, đặc biệt là từ bên trong các mẫu. Tính năng mạnh mẽ này cho phép bạn thực hiện các thay đổi chung đối với các mẫu URL của dự án trong khi chỉ chạm vào một tệp duy nhất.
 
-### database
+### Database
 - Run cmd dưới khi có các thay đổi về models
 ```python manage.py makemigrations polls```
 - Run cmd dưới để apply những thay đổi vào DB
@@ -228,4 +228,41 @@ Sự khác biệt giữa một dự án và một ứng dụng là gì? Ứng d�
 - The sqlmigrate > biểu diễn lại các dòng lệnh ở file models dưới dạng 
 - Sau đó run lại ```python manage.py runserver``` để tạo các table vào trong 
 
+### Playing with API - Hỏi sếp phong để có guide học phần này
+
+### Introducing django admin
+- First > Tạo super user để có thể đăng nhập vào admin site
+```python manage.py createsuperuser```
+- Để apply app đã install (polls app) 
+- Register Question vào admin.py 
+```
+from django.contrib import admin
+from .models import Question
+
+admin.site.register(Question)
+```
+### Writting django app
+- Defind các trang view page mới
+```
+def detail(request, question_id):
+    return HttpResponse("You're looking at question %s." % question_id)
+
+def results(request, question_id):
+    response = "You're looking at the results of question %s."
+    return HttpResponse(response % question_id)
+
+def vote(request, question_id):
+    return HttpResponse("You're voting on question %s." % question_id)
+```
+- Sau đó phải chèn thêm path vào Urls để có thể mở vào page đó
+```
+    # ex: /polls/
+    path('', views.index, name='index'),
+    # ex: /polls/5/
+    path('<int:question_id>/', views.detail, name='detail'),
+    # ex: /polls/5/results/
+    path('<int:question_id>/results/', views.results, name='results'),
+    # ex: /polls/5/vote/
+    path('<int:question_id>/vote/', views.vote, name='vote'),
+ ```
 
