@@ -2,6 +2,6 @@
 
 - Thẻ <p>: paragraph
 - Nesting element: 1 element nằm trong 1 element khác: 
-```
+```html
 <p>My cat is <strong>very</strong> grumpy.</p>
 ```
