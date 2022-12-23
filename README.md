@@ -303,4 +303,4 @@ def index(request):
 - Tạo Template mới 
 -- Tạo folder mới : Tệp cài đặt mặc định định cấu hình chương trình DjangoTemplates có tùy chọn APP_DIRS được đặt thành True. Theo quy ước, DjangoTemplates tìm kiếm thư mục con "template" trong mỗi INSTALLED_APPS.
 
-Trong thư mục template mà bạn vừa tạo, hãy tạo một thư mục khác có tên là polls và trong đó tạo một tệp có tên là index.html. Nói cách khác, template của bạn phải ở polls/templates/polls/index.html
+-- Trong thư mục template mà bạn vừa tạo, hãy tạo một thư mục khác có tên là polls và trong đó tạo một tệp có tên là index.html. Nói cách khác, template của bạn phải ở polls/templates/polls/index.html
