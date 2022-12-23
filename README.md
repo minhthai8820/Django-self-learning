@@ -228,7 +228,34 @@ Sự khác biệt giữa một dự án và một ứng dụng là gì? Ứng d�
 - The sqlmigrate > biểu diễn lại các dòng lệnh ở file models dưới dạng 
 - Sau đó run lại ```python manage.py runserver``` để tạo các table vào trong 
 
-### Playing with API - Hỏi sếp phong để có guide học phần này
+### Playing with API 
+- Run cmd ```python .\manage.py shell``` để mở block query DB
+- Trên cmd query
+-- Import models muốn query: `from polls.models import Choice, Question`
+-- Query all: `Question.objects.all()`
+-- Insert new data: 
+```python
+q = Question(question_text="What's new?", pub_date=timezone.now())
+q.choice_set.create(choice_text='The sky', votes=0)
+```
+-- Query with filter: 
+```python
+Question.objects.filter(id=1)
+Question.objects.filter(question_text__startswith='What')
+Question.objects.get(pk=1) > query by primary key
+```
+```python
+>>> from django.utils import timezone
+>>> current_year = timezone.now().year
+>>> Question.objects.get(pub_date__year=current_year)
+```
+```python
+# Use double underscores to separate relationships.
+# Find all Choices for any question whose pub_date is in this year
+>>> current_year = timezone.now().year
+>>> Choice.objects.filter(question__pub_date__year=current_year)
+```
+- Nên tạo thêm các def `__str__` vào model
 
 ### Introducing django admin
 - First > Tạo super user để có thể đăng nhập vào admin site
@@ -265,4 +292,15 @@ def vote(request, question_id):
     # ex: /polls/5/vote/
     path('<int:question_id>/vote/', views.vote, name='vote'),
  ```
+- Tại view page, insert thêm 1 def index()
+```python
+# Displays the latest 5 poll questions in the system, separated by commas, according to publication date:
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    output = ', '.join([q.question_text for q in latest_question_list])
+    return HttpResponse(output)
+```
+- Tạo Template mới 
+-- Tạo folder mới : Tệp cài đặt mặc định định cấu hình chương trình DjangoTemplates có tùy chọn APP_DIRS được đặt thành True. Theo quy ước, DjangoTemplates tìm kiếm thư mục con "template" trong mỗi INSTALLED_APPS.
 
+Trong thư mục template mà bạn vừa tạo, hãy tạo một thư mục khác có tên là polls và trong đó tạo một tệp có tên là index.html. Nói cách khác, template của bạn phải ở polls/templates/polls/index.html
