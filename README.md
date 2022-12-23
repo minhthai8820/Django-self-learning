@@ -243,7 +243,7 @@ admin.site.register(Question)
 ```
 ### Writting django app
 - Defind các trang view page mới
-```
+```python
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
 
@@ -255,7 +255,7 @@ def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
 ```
 - Sau đó phải chèn thêm path vào Urls để có thể mở vào page đó
-```
+```python
     # ex: /polls/
     path('', views.index, name='index'),
     # ex: /polls/5/
